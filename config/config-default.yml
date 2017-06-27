@@ -1,0 +1,8 @@
+bot:
+  token: "VALOR"
+  client_id: "VALOR"
+  prefix: "!"
+
+  # Usuários autorizados a manipular diretamente a database.
+  # ID separado por espaços.
+  super_admin: "000000000000000000 000000000000000000"

@@ -1,29 +1,45 @@
+require "yaml"
+require "discordrb"
 require "nokogiri"
 require "open-uri"
 require "sqlite3"
-require "discordrb"
-require "yaml"
 
-class Nyaa
+class Database
+  def initialize
+    @db_dir = "#{File.dirname(__FILE__)}/db"
+    @database = "#{File.dirname(__FILE__)}/db/nyaa.db"
+
+    self.db_init
+  end
+
+  def db_init
+    Dir.mkdir @db_dir unless File.exists? @db_dir
+    SQLite3::Database.new @database unless File.exists? @database
+  end
+
   def update( target )
-    db = SQLite3::Database.new "nyaa.db" unless File.exists? "#{Dir.pwd}/nyaa.db"
-    content = Nokogiri::HTML( open( "http://ecchinyaa.org/#{target}", "User-Agent" => "EcchiNyaa Bot v1.0" ), nil, "UTF-8" )
-
-    # <div class=".entry_content">
-    # [...]
-    # <td><a href="/aldnoah-zero">Aldnoah.Zero</a></td>
-    # [...]
-    # </div>
+    content = Nokogiri::HTML( open( "http://ecchinyaa.org/#{target}", "User-Agent" => "EcchiNyaa Bot v1.2" ) )
     links = content.css ".entry-content a"
 
-    db = SQLite3::Database.open "nyaa.db"
-    db.execute "CREATE TABLE IF NOT EXISTS #{target}( id INTEGER PRIMARY KEY, nome TEXT, link TEXT, UNIQUE( nome, link ) )"
+    begin
+      db = SQLite3::Database.open @database
+      db.execute <<-SQL
+      CREATE TABLE IF NOT EXISTS #{target}(
+        id INTEGER PRIMARY KEY,
+        nome TEXT,
+        link TEXT,
+        UNIQUE( nome, link )
+      );
+      SQL
 
-    links.each do |link|
-      db.execute "INSERT OR IGNORE INTO #{target}( nome, link ) VALUES( '#{link.text}', 'https://ecchinyaa.org#{link['href']}' )"
+      links.each do |link|
+        insert = db.prepare "INSERT OR IGNORE INTO #{target}( nome, link ) VALUES( ?, ?)"
+        insert.bind_params link.text, "https://ecchinyaa.org#{link['href']}"
+        insert.execute
+      end
+    rescue SQLite3::Exception => error
+      puts "Ocorreu um erro: #{error}"
     end
-
-    db.close if db
   end
 
   def update_db
@@ -33,22 +49,29 @@ class Nyaa
   end
 
   def search( target, argument )
-    db = SQLite3::Database.open "nyaa.db"
-    query = "SELECT link FROM #{target} WHERE nome LIKE ?;"
-    link = db.execute query, "%#{argument}%"
-    db.close if db
+    begin
+      db = SQLite3::Database.open @database
 
-    return link
+      search = db.prepare "SELECT link FROM #{target} WHERE nome LIKE ?"
+      search.bind_params "%#{argument}%"
+      result = search.execute
+    rescue SQLite3::Exception => error
+      puts "Ocorreu um erro: #{error}"
+    end
+    
+    # Return array (to_a).
+    return result.to_a
   end
 end
 
-abort "Arquivo de configuração não encontrado." unless File.exists? "#{Dir.pwd}/config.yml"
-config = YAML::load_file( "config.yml" )
+CONFIG = "#{File.dirname(__FILE__)}/config/config.yml"
 
-nyaa = Nyaa.new
+abort "Arquivo de configuração não encontrado." unless File.exists? CONFIG
+config = YAML::load_file( CONFIG )
 
-# DB Update
-# nyaa.update_db
+# Init DB.
+# /db/nyaa.db
+nyaa = Database.new
 
 # EcchiNyaa Bot
 # https://discordapp.com/developers/applications/me
@@ -74,6 +97,13 @@ end
 bot.command :eroge do |event, *text|
   res = nyaa.search "eroges", text.join( " " )
   search_layout event, res
+end
+
+bot.command :update do |event|
+  id = config["bot"]["super_admin"].split( " " )
+  break unless id.include? event.user.id.to_s
+  nyaa.update_db
+  event.respond "Sucesso!"
 end
 
 bot.run

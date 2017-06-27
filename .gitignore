@@ -1,2 +1,2 @@
-config.yml
-nyaa.db
+config/config.yml
+db/nyaa.db
