@@ -1,0 +1,4 @@
+bot:
+  token: "VALOR"
+  client_id: "VALOR"
+  prefix: "!"
