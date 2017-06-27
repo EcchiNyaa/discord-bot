@@ -7,7 +7,7 @@ require "sqlite3"
 class Database
   def initialize
     @db_dir = "#{File.dirname(__FILE__)}/db"
-    @database = "#{File.dirname(__FILE__)}/db/nyaa.db"
+    @database = "#{@db_dir}/nyaa.db"
 
     self.db_init
   end
@@ -18,7 +18,7 @@ class Database
   end
 
   def update( target )
-    content = Nokogiri::HTML( open( "http://ecchinyaa.org/#{target}", "User-Agent" => "EcchiNyaa Bot v1.2" ) )
+    content = Nokogiri::HTML( open( "http://ecchinyaa.org/#{target}", "User-Agent" => "EcchiNyaa Bot" ) )
     links = content.css ".entry-content a"
 
     begin
@@ -58,7 +58,7 @@ class Database
     rescue SQLite3::Exception => error
       puts "Ocorreu um erro: #{error}"
     end
-    
+
     # Return array (to_a).
     return result.to_a
   end
@@ -99,7 +99,13 @@ bot.command :eroge do |event, *text|
   search_layout event, res
 end
 
-bot.command :update do |event|
+bot.command :info do |event|
+  event.respond "<https://github.com/EcchiNyaa/discord-bot>"
+  event.respond "Commit: #{`cd #{File.dirname(__FILE__)} && git log -1 --format="%H (%ar)"`.strip}."
+end
+
+# ADMIN
+bot.command :db do |event|
   id = config["bot"]["super_admin"].split( " " )
   break unless id.include? event.user.id.to_s
   nyaa.update_db
