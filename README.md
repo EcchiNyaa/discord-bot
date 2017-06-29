@@ -1,14 +1,15 @@
 # EcchiNyaa Bot
 
-Work in Progress.
+Work in progress.
 
-```
-gem install discordrb
-gem install nokogiri
-gem install sqlite3
-gem install yaml
+1. Faça uma cópia do arquivo `config/config-default.yml` para `config/config.yml`.
+2. Certifique-se de que os módulos estão incluídos em `nyaa.db`.
+3. Execute o bot `ruby nyaa.rb`.
 
-ruby nyaa.rb
-```
+## To do
 
-Faça uma cópia do arquivo `config/config-default.yml` para `config/config.yml`.
+- [ ] Otimizar comando !help
+- [ ] Implementar um módulo de logs.
+- [ ] Implementar modo daemon + systemd.
+- [ ] Modularizar o código ainda mais.
+- [ ] **Mais comandos.**
