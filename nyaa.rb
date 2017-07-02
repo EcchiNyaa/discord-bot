@@ -4,11 +4,11 @@ require "open-uri"        # HTTP.
 require "sqlite3"         # Database.
 require "yaml"            # Config Files.
 
-# IMPORTANT!.
+# IMPORTANT!
 DIR = File.dirname(__FILE__)
 CONFIG = YAML.load_file("#{DIR}/config/config.yml")
 
-# REQUIRE ALL MODULES
+# REQUIRE ALL MODULES.
 Dir["#{DIR}/modules/commands/*.rb"].each { |file| require file }
 Dir["#{DIR}/modules/events/*.rb"].each { |file| require file }
 
