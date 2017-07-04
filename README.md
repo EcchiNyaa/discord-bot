@@ -1,4 +1,4 @@
-# EcchiNyaa Bot (Alpha)
+# EcchiNyaa Bot ( Alpha )
 
 1. Faça uma cópia do arquivo `config/config-default.yml` para `config/config.yml`.
 2. Certifique-se de que os módulos estão incluídos em `nyaa.db`.
@@ -22,8 +22,8 @@
 [17:07] EcchiNyaa: [JAP] ore ha hito no nagare kara hazure
 ```
 
-![Screenshot](/screenshot/screenshot jp.png?raw=true)
+![Screenshot](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20jp.png?raw=true)
 
 ## Integração com o EcchiNyaa
 
-![Screenshot](/screenshot/screenshot nyaa.png?raw=true)
+![Screenshot](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20jp.png?raw=true)
