@@ -26,4 +26,4 @@
 
 ## Integração com o EcchiNyaa
 
-![Screenshot](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20jp.png?raw=true)
+![Screenshot](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20nyaa.png?raw=true)
