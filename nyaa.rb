@@ -14,8 +14,13 @@ Dir["#{DIR}/modules/events/*.rb"].each { |file| require file }
 
 bot = Discordrb::Commands::CommandBot.new token: CONFIG["token"], client_id: CONFIG["client_id"], prefix: CONFIG["prefix"]
 
+# EVENT.
 bot.include! Version
+bot.include! User_Info
+
+# COMMAND.
 bot.include! Kill
 bot.include! EcchiNyaa
+bot.include! Set_Avatar
 
 bot.run
