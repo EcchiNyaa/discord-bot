@@ -85,6 +85,7 @@ module EcchiNyaa
 
   command :db, help_available: false do |event|
     break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
+
     nyaa.update_db
     event.respond "Database atualizada com sucesso."
   end
