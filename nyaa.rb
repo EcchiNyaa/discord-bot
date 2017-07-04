@@ -3,9 +3,13 @@ require "nokogiri"        # HTTP.
 require "open-uri"        # HTTP.
 require "sqlite3"         # Database.
 require "yaml"            # Config Files.
+require 'json'            # Parse json files.
+require "open3"           # Shell.
 
 # IMPORTANT!
 DIR = File.dirname(__FILE__)
+DB_DIR = "#{DIR}/database"
+DATA_DIR = "#{DIR}/data"
 CONFIG = YAML.load_file("#{DIR}/config/config.yml")
 
 # REQUIRE ALL MODULES.
@@ -22,5 +26,6 @@ bot.include! User_Info
 bot.include! Kill
 bot.include! EcchiNyaa
 bot.include! Set_Avatar
+bot.include! Japanese
 
 bot.run
