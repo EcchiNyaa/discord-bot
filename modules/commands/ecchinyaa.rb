@@ -4,13 +4,12 @@
 module EcchiNyaa
   extend Discordrb::Commands::CommandContainer
 
-  DB_DIR = "#{DIR}/database"
-  DATABASE = "#{DB_DIR}/nyaa.db"
+  NYAA_DB = "#{DB_DIR}/nyaa.db"
 
   class Database
     def initialize
       Dir.mkdir DB_DIR unless File.exists? DB_DIR
-      SQLite3::Database.new DATABASE unless File.exists? DATABASE
+      SQLite3::Database.new NYAA_DB unless File.exists? NYAA_DB
     end
 
     def update( target )
@@ -18,7 +17,7 @@ module EcchiNyaa
       links = content.css ".entry-content a"
 
       begin
-        db = SQLite3::Database.open DATABASE
+        db = SQLite3::Database.open NYAA_DB
         db.execute <<-SQL
           CREATE TABLE IF NOT EXISTS #{target}(
             id INTEGER PRIMARY KEY,
@@ -46,7 +45,7 @@ module EcchiNyaa
 
     def search( target, argument )
       begin
-        db = SQLite3::Database.open DATABASE
+        db = SQLite3::Database.open NYAA_DB
 
         search = db.prepare "SELECT link FROM #{target} WHERE nome LIKE ?"
         search.bind_params "%#{argument}%"
