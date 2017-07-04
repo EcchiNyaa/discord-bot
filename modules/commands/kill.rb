@@ -4,7 +4,7 @@
 module Kill
   extend Discordrb::Commands::CommandContainer
 
-  command :kill, description: "" do |event|
+  command :kill, help_available: false do |event|
     break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
     event.user.pm "Shutting down."
     exit

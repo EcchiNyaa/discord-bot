@@ -68,22 +68,22 @@ module EcchiNyaa
     event.respond "Nenhum resultado." if res.length == 0
   end
 
-  command :anime do |event, *text|
+  command :anime, description: "Busca por animes no catálogo do EcchiNyaa." do |event, *text|
     res = nyaa.search "animes", text.join( " " )
     search_layout event, res
   end
 
-  command :ecchi do |event, *text|
+  command :ecchi, description: "Busca por ecchis no catálogo do EcchiNyaa." do |event, *text|
     res = nyaa.search "ecchis", text.join( " " )
     search_layout event, res
   end
 
-  command :eroge do |event, *text|
+  command :eroge, description: "Busca por eroges no catálogo do EcchiNyaa." do |event, *text|
     res = nyaa.search "eroges", text.join( " " )
     search_layout event, res
   end
 
-  command :db do |event|
+  command :db, help_available: false do |event|
     break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
     nyaa.update_db
     event.respond "Database atualizada com sucesso."
