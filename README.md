@@ -22,8 +22,12 @@
 [17:07] EcchiNyaa: [JAP] ore ha hito no nagare kara hazure
 ```
 
-![Screenshot](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20jp.png?raw=true)
+![Screenshot Japonês](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20jp.png?raw=true)
 
 ## Integração com o EcchiNyaa
 
-![Screenshot](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20nyaa.png?raw=true)
+![Screenshot Animes](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20anime.png?raw=true)
+
+![Screenshot Ecchis](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20ecchi.png?raw=true)
+
+Database sincronizada, sem necessidade de acessar o server do EcchiNyaa a cada requisição.
