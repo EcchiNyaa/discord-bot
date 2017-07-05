@@ -20,12 +20,14 @@ bot = Discordrb::Commands::CommandBot.new token: CONFIG["token"], client_id: CON
 
 # EVENT.
 bot.include! Version
-bot.include! User_Info
+bot.include! User_Management
 
 # COMMAND.
 bot.include! Kill
+bot.include! User_Info
 bot.include! EcchiNyaa
 bot.include! Set_Avatar
 bot.include! Japanese
+bot.include! Help
 
 bot.run
