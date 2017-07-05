@@ -26,21 +26,21 @@ Crie uma `issue` caso pretenda requisitar novos comandos.
 [17:07] EcchiNyaa: [JAP] ore ha hito no nagare kara hazure
 ```
 
-![Screenshot Japonês](/screenshot/screenshot_jp.png?raw=true)
+![Screenshot Japonês](/data/screenshot/screenshot_jp.png?raw=true)
 
-![Screenshot Japonês 2](/screenshot/screenshot_jp2.png?raw=true)
+![Screenshot Japonês 2](/data/screenshot/screenshot_jp2.png?raw=true)
 
 ### Integração com o EcchiNyaa
 
-![Screenshot Animes](/screenshot/screenshot_anime.png?raw=true)
+![Screenshot Animes](/data/screenshot/screenshot_anime.png?raw=true)
 
-![Screenshot Ecchis](/screenshot/screenshot_ecchi.png?raw=true)
+![Screenshot Ecchis](/data/screenshot/screenshot_ecchi.png?raw=true)
 
 Database sincronizada, sem necessidade de acessar o server do EcchiNyaa a cada requisição.
 
 ### Canal de administração
 
-![Screenshot Administração](/screenshot/screenshot_admin.png?raw=true)
+![Screenshot Administração](/data/screenshot/screenshot_admin.png?raw=true)
 
 Mantêm sugestões e pedidos dos usuários em um canal privado.
 
