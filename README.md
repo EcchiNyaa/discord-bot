@@ -11,7 +11,11 @@
 - [ ] Implementar um módulo de logs.
 - [ ] Implementar modo daemon + systemd.
 
-## Japonês
+## Features
+
+Crie uma `issue` caso pretenda requisitar novos comandos.
+
+### Japonês
 
 ```
 [17:02] mitki: @EcchiNyaa
@@ -22,12 +26,24 @@
 [17:07] EcchiNyaa: [JAP] ore ha hito no nagare kara hazure
 ```
 
-![Screenshot Japonês](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20jp.png?raw=true)
+![Screenshot Japonês](/screenshot/screenshot_jp.png?raw=true)
 
-## Integração com o EcchiNyaa
+![Screenshot Japonês 2](/screenshot/screenshot_jp2.png?raw=true)
 
-![Screenshot Animes](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20anime.png?raw=true)
+### Integração com o EcchiNyaa
 
-![Screenshot Ecchis](https://github.com/EcchiNyaa/discord-bot/blob/master/data/screenshot/screenshot%20ecchi.png?raw=true)
+![Screenshot Animes](/screenshot/screenshot_anime.png?raw=true)
+
+![Screenshot Ecchis](/screenshot/screenshot_ecchi.png?raw=true)
 
 Database sincronizada, sem necessidade de acessar o server do EcchiNyaa a cada requisição.
+
+### Canal de administração
+
+![Screenshot Administração](/screenshot/screenshot_admin.png?raw=true)
+
+Mantêm sugestões e pedidos dos usuários em um canal privado.
+
+## Contribuição
+
+Pull requests são bem aceitos, fique à vontade para revisar o código ou adicionar novas funções.
