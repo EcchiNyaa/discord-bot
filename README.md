@@ -7,7 +7,7 @@
 
 ## Planos
 
-- [ ] Otimizar comando !help
+- [x] Otimizar comando !help
 - [ ] Implementar um módulo de logs.
 - [ ] Implementar modo daemon + systemd.
 
