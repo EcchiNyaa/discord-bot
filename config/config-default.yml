@@ -2,9 +2,20 @@ token: "VALOR"
 client_id: "VALOR"
 prefix: "!"
 
-# Usuários autorizados a manipular diretamente a database.
-# ID separado por espaços.
+# Usuários com autorização suprema.
+# ID separado por espaço.
 super_admin: "000000000000000000 000000000000000000"
 
-# Canal oculto da administração.
+# Ferramentas administrativas.
+# Os três podem ser direcionados para o mesmo ID.
 admin_channel_id: "000000000000000000"
+joined_event_channel_id: "000000000000000000"
+report_command_channel_id: "000000000000000000"
+
+# Logger Module
+log_private_messages: true
+log_server_messages_to_file: true
+
+# Mostra mensagens direcionadas ao log no terminal,
+# o terminal deve suportar cores.
+verbose: false
