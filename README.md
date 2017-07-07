@@ -42,22 +42,25 @@ Quer sugerir uma função? Crie uma `issue`.
 
 ![Screenshot Ecchis](/data/screenshot/screenshot_ecchi.png?raw=true)
 
-* Database sincronizada, sem necessidade de acessar o server do EcchiNyaa a cada requisição.
-* API em PHP/json construída para ligar o bot ao website.
+Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas regularmente e atualiza uma database mantida localmente, de forma que não tenha necessidade de acessar o server do EcchiNyaa a cada requisição.
 
 ### Canal de administração
 
 ![Screenshot Administração](/data/screenshot/screenshot_admin.png?raw=true)
 
-* Fornece logs sobre usuários.
-* Mantêm sugestões e pedidos em canal privado.
-* Função básica de tickets.
+Suporta um canal privado de administração com sistema básico de tickets, usuários podem fazer sugestões e pedidos através de comandos, que são dispostos de forma organizada para a administração e podem ser marcados como 'Resolvidos' ou 'Em espera'.
 
 ## Modo verbose
 
 ![Screenshot Verbose](/data/screenshot/screenshot_verbose.png?raw=true)
 
-* Exibe informações enviadas ao log no terminal, coloridas para melhor identificação.
+Exibe informações coloridas no terminal, caso `verbose` true.
+
+## Logs
+
+![Screenshot Logs](/data/screenshot/screenshot_logs.png?raw=true)
+
+Mantêm logs de administração em database ou arquivo txt. Em `config.yml` é possível ativar o log de mensagens em todos os canais, que por padrão é desativado por ser desnecessário.
 
 ## Contribuição
 
