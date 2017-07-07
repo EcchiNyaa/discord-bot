@@ -1,7 +1,7 @@
 module Cygnus
   module Cygnus_Events
-    # bot.include! Version
-    # Mostra a versão do bot, o diretório deve ser um repositório git.
+    # MÓDULO DE VERSÃO
+    # Exibe a versão do repositório local.
     module Version
       extend Discordrb::EventContainer
 

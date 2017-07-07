@@ -1,6 +1,6 @@
 module Cygnus
   module Cygnus_Commands
-    # bot.include! User_Info.
+    # USER INFO
     # Mostra uma tabela com informações do usuário.
     module User_Info
       extend Discordrb::Commands::CommandContainer
@@ -16,7 +16,7 @@ module Cygnus
           end
         end
 
-      command :info, description: "Mostra informações sobre um usuário." do |event|
+      command :info, description: "[Info] Mostra informações sobre um usuário." do |event|
         u_user = event.user
         u_user = event.message.mentions.first.on( event.server ) unless event.message.mentions.empty?
         user_info event, u_user

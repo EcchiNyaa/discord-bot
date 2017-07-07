@@ -1,13 +1,17 @@
 module Cygnus
   module Cygnus_Commands
-    # bot.include! Japanese
-    # Fornece definições, romanização e muito mais.
+    # LÍNGUA JAPONESA
+    # Fornece definições e romanização, só é compatível com Linux.
     module Japanese
       extend Discordrb::Commands::CommandContainer
 
       require "mojinizer"
+      require "json"
+      require "open3"
 
-      command :jp, description: "Dicionário Japonês > Inglês." do |event, word, def_number = 1|
+      command :jp, description: "[Japonês] Dicionário Japonês > Inglês." do |event, word, def_number = 1|
+        ( event << "\\⚠ :: !jp [palavra] [opcional: número inteiro]"; break ) unless word
+
         jp = JSON.parse( open( "http://jisho.org/api/v1/search/words?keyword=#{word}" ).read )
 
         def_number = 1 if def_number.to_i == 0
@@ -21,28 +25,34 @@ module Cygnus
 
         event.channel.send_embed do |embed|
           embed.add_field name: "Kanji", value: kanji, inline: true
-          embed.add_field name: "Reading", value: "#{reading} (#{reading.romaji})", inline: true
-          embed.add_field name: "English", value: english.join(", ")
+          embed.add_field name: "Leitura", value: "#{reading} (#{reading.romaji})", inline: true
+          embed.add_field name: "Significado", value: english.join(", ")
         end
       end
 
-      command :hiragana, description: "Conversor Romaji > Hiragana." do |event, *args|
-        event << args.join( " " ).downcase.hiragana
+      command :hiragana, description: "[Japonês] Conversor Romaji > Hiragana." do |event, *words|
+        ( event << "\\⚠ :: !hiragana [palavra]"; break ) if words.empty?
+
+        event << words.join( " " ).downcase.hiragana
       end
 
-      command :katakana, description: "Conversor Romaji > Katakana." do |event, *args|
-        event << args.join( " " ).downcase.katakana
+      command :katakana, description: "[Japonês] Conversor Romaji > Katakana." do |event, *words|
+        ( event << "\\⚠ :: !katakana [palavra]"; break ) if words.empty?
+
+        event << words.join( " " ).downcase.katakana
       end
 
-      command :romaji, description: "Conversor Japonês > Romaji." do |event, *args|
-        romaji = Open3.capture3( "#{DATA_DIR}/sh/japanese.sh", args.join(" ") )
+      command :romaji, description: "[Japonês] Conversor Japonês > Romaji." do |event, *kanji|
+        ( event << "\\⚠ :: !romaji [frase]"; break ) if kanji.empty?
+
+        romaji = Open3.capture3( "#{DIR_DATA}/sh/japanese.sh", kanji.join( " " ) )
         event.channel.send_embed do |embed|
-          embed.add_field name: "Original", value: args.join(" "), inline: true
-          embed.add_field name: "Romaji (Estimativa)", value: romaji[0], inline: true
+          embed.add_field name: "Original", value: kanji.join( " " ), inline: true
+          embed.add_field name: "Romaji ( Estimativa )", value: romaji[0], inline: true
         end
       end
 
-      command :jp_info, description: "Informações sobre a língua japonesa." do |event|
+      command :jp_info, description: "[Japonês] Informações sobre a língua japonesa." do |event|
         event << "```"
         event << "http://jisho.org/"
         event << "http://www.guidetojapanese.org/learn/grammar"

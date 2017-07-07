@@ -1,93 +1,104 @@
+require "json"            # JSON.
+require "open-uri"        # HTTP scraping.
+require "sequel"          # SQLITE.
+require "sqlite3"         # SQLITE.
+
 module Cygnus
   module Cygnus_Commands
-    # bot.include! EcchiNyaa
-    # Armazena em uma tabela os animes do EcchiNyaa, e fornece uma função de busca básica.
+    # ECCHI NYAA
+    # Armazena informações dos animes disponíveis no EcchiNyaa e fornece uma função de busca básica.
     module EcchiNyaa
       extend Discordrb::Commands::CommandContainer
 
-      NYAA_DB = "#{DB_DIR}/nyaa.db"
+      DB = Sequel.connect("sqlite://#{DIR_DB}/nyaa.db")
+
+      Sequel.extension :migration
+      Sequel::Migrator.run DB, "#{DIR_DB}/migrations/ecchinyaa"
 
       class Database
         def initialize
-          Dir.mkdir DB_DIR unless File.exists? DB_DIR
-          SQLite3::Database.new NYAA_DB unless File.exists? NYAA_DB
+          @animes = DB[:animes]
+          @ecchis = DB[:ecchis]
+          @eroges = DB[:eroges]
         end
 
-        def update( target )
-          content = Nokogiri::HTML( open( "http://ecchinyaa.org/#{target}", "User-Agent" => "EcchiNyaa Bot" ) )
-          links = content.css ".entry-content a"
+        def update
+          tables = [
+            { page: "animes", variable: "@animes" },
+            { page: "ecchis", variable: "@ecchis" },
+          # { page: "eroges", variable: "@eroges" }
+          ]
 
-          begin
-            db = SQLite3::Database.open NYAA_DB
-            db.execute <<-SQL
-              CREATE TABLE IF NOT EXISTS #{target}(
-                id INTEGER PRIMARY KEY,
-                nome TEXT,
-                link TEXT,
-                UNIQUE( nome, link )
-              );
-            SQL
+          tables.each do |table|
+            target = table[:page]
+            api = JSON.parse( open( "http://localhost/wordpress/api-#{target}.json" ).read )
 
-            links.each do |link|
-              insert = db.prepare "INSERT OR IGNORE INTO #{target}( nome, link ) VALUES( ?, ?)"
-              insert.bind_params link.text, "https://ecchinyaa.org#{link['href']}"
-              insert.execute
+            t = eval table[:variable]
+
+            api[target].each do |i|
+              t.insert :nome => i["nome"],
+                       :link => i["permalink"],
+                       :cover => i["cover"],
+                       :fansub => i["fansub"],
+                       :sinopse => i["sinopse"]
+
+              if target == "ecchis"
+                i["ecchi_power"] = "-" if i["ecchi_power"] == nil
+
+                q = @ecchis.where :link => i["permalink"]
+                q.update :ecchi_power => i["ecchi_power"]
+              end
             end
-          rescue SQLite3::Exception => error
-            puts "Ocorreu um erro: #{error}"
           end
         end
 
-        def update_db
-          self.update "animes"
-          self.update "ecchis"
-          self.update "eroges"
+        def search( table, name )
+          q = eval( table )
+          q = q.where( Sequel.ilike( :nome, "%#{name}%" ) )
         end
+      end
 
-        def search( target, argument )
-          begin
-            db = SQLite3::Database.open NYAA_DB
+      command :anime, description: "[EcchiNyaa] Buscar por animes no catálogo do EcchiNyaa." do |event, *args|
+        ( event << "\\⚠ :: !anime [nome]"; break ) if args.empty?
 
-            search = db.prepare "SELECT link FROM #{target} WHERE nome LIKE ?"
-            search.bind_params "%#{argument}%"
-            result = search.execute
-          rescue SQLite3::Exception => error
-            puts "Ocorreu um erro: #{error}"
+        nyaa = Database.new
+        res = nyaa.search "@animes", args.join( " " )
+
+        if res.count == 1
+          event.channel.send_embed do |embed|
+            embed.title = res.first[:nome]
+            embed.description = res.first[:sinopse]
+            embed.thumbnail = { url: res.first[:cover] }
+            embed.add_field name: "Fansub", value: res.first[:fansub], inline: true
+            embed.add_field name: "URL", value: res.first[:link], inline: true
           end
-
-          # Return array (to_a).
-          return result.to_a
+        else
+          event << "```"
+          res.each { |r| event << r[:link] }
+          event << "```"
         end
       end
 
-      nyaa = Database.new
+      command :ecchi, description: "[EcchiNyaa] Buscar por ecchis no catálogo do EcchiNyaa." do |event, *args|
+        ( event << "\\⚠ :: !ecchi [nome]"; break ) if args.empty?
 
-      def self.search_layout( event, res )
-        event.respond "```#{ res.join("\n") }```" if res.length > 1
-        event.respond "#{ res.join("\n") }" if res.length == 1
-        event.respond "Nenhum resultado." if res.length == 0
-      end
+        nyaa = Database.new
+        res = nyaa.search "@ecchis", args.join( " " )
 
-      command :anime, description: "Busca por animes no catálogo do EcchiNyaa." do |event, *text|
-        res = nyaa.search "animes", text.join( " " )
-        search_layout event, res
-      end
-
-      command :ecchi, description: "Busca por ecchis no catálogo do EcchiNyaa." do |event, *text|
-        res = nyaa.search "ecchis", text.join( " " )
-        search_layout event, res
-      end
-
-      command :eroge, description: "Busca por eroges no catálogo do EcchiNyaa." do |event, *text|
-        res = nyaa.search "eroges", text.join( " " )
-        search_layout event, res
-      end
-
-      command :db, help_available: false do |event|
-        break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
-
-        nyaa.update_db
-        event.respond "Database atualizada com sucesso."
+        if res.count == 1
+          event.channel.send_embed do |embed|
+            embed.title = res.first[:nome]
+            embed.description = res.first[:sinopse]
+            embed.thumbnail = { url: res.first[:cover] }
+            embed.add_field name: "EcchiPower", value: res.first[:ecchi_power].gsub(/(.{1})/m, '\\\\\1'), inline: true
+            embed.add_field name: "Fansub", value: res.first[:fansub], inline: true
+            embed.add_field name: "URL", value: res.first[:link]
+          end
+        else
+          event << "```"
+          res.each { |r| event << r[:link] }
+          event << "```"
+        end
       end
     end
   end
