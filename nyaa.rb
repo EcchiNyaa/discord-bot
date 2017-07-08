@@ -15,9 +15,9 @@ module Cygnus
   bot = Discordrb::Commands::CommandBot.new token: CONFIG["token"], client_id: CONFIG["client_id"], prefix: CONFIG["prefix"]
 
   # Importa os módulos e inclui cada constante.
-  Dir["#{DIR}/modules/*.rb"].each           { |file| require file }
-  Dir["#{DIR}/modules/commands/*.rb"].each  { |file| require file }
-  Dir["#{DIR}/modules/events/*.rb"].each    { |file| require file }
+  Dir["#{DIR}/modules/*.rb"].each              { |file| require file }
+  Dir["#{DIR}/modules/commands/**/*.rb"].each  { |file| require file }
+  Dir["#{DIR}/modules/events/*.rb"].each       { |file| require file }
 
   Cygnus_Commands.constants.each do |command|
     bot.include! Cygnus_Commands.const_get command
