@@ -9,7 +9,14 @@
 
 - [x] Otimizar comando !help
 - [x] Implementar um módulo de logs.
+- [ ] Reimplementar busca de eroges (revertida).
 - [ ] Implementar modo daemon + systemd.
+
+Nyaa será considerado estável ao cumprir as metas acima.
+
+- [ ] Integração com outras plataformas, como MAL e VNDB.
+- [ ] Incluir busca por personagens e staff.
+- [ ] Fansub feed: Nyaa pode avisar por PM quando determinado fansub efetuar determinado lançamento.
 
 ## Descrição
 
@@ -23,13 +30,14 @@ Quer sugerir uma função? Crie uma `issue`.
 
 ### Língua Japonesa
 
+- `!jp [palavra] [opcional: 1-10]` - Mostra a tradução de certa palavra japonesa.
+- `!hiragana [frase]` - Converte a frase para hiragana.
+- `!katakana [frase]` - Converte a frase para katakana.
+- `!romaji [frase]` - Faz uma boa estimativa da frase em romaji.
+
 ```
-[17:02] mitki: @EcchiNyaa
-[17:02] EcchiNyaa: Running "EcchiNyaa" 7b3a0c9 (48 seconds ago).
-[17:03] mitki: !katakana ecchinyaa
+[17:03] mitki: !katakana EcchiNyaa
 [17:03] EcchiNyaa: エッチニャア
-[17:07] mitki: !romaji 俺は人の流れから外れ
-[17:07] EcchiNyaa: [JAP] ore ha hito no nagare kara hazure
 ```
 
 ![Screenshot Japonês](/data/screenshot/screenshot_jp.png?raw=true)
@@ -38,29 +46,57 @@ Quer sugerir uma função? Crie uma `issue`.
 
 ### Integração com o EcchiNyaa
 
+- `!anime [nome]` - Busca por animes no catálogo do EcchiNyaa.
+- `!ecchi [nome]` - Busca por ecchis no catálogo do EcchiNyaa.
+
+Busca por eroges revertida temporariamente, será reescrita para utilizar também informações do VNDB.
+
 ![Screenshot Animes](/data/screenshot/screenshot_anime.png?raw=true)
 
 ![Screenshot Ecchis](/data/screenshot/screenshot_ecchi.png?raw=true)
 
 Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas regularmente e atualiza uma database mantida localmente, de forma que não tenha necessidade de acessar o server do EcchiNyaa a cada requisição.
 
-### Canal de administração
+### Módulo administrativo.
 
-![Screenshot Administração](/data/screenshot/screenshot_admin.png?raw=true)
+- `!reportar [issue]` - Abre um ticket e o envia a moderação.
+- `!ticket #2` **ADMIN** - Mostra o ticket #2.
+- `!ticket #2 fechar` **ADMIN** - Fecha o ticket #2.
+- `!ticket #2 abrir` **ADMIN** - Reabre o ticket #2.
+- `!ticket.del [usuário]` **ADMIN** - Remove todos os tickets do usuário.
 
-Suporta um canal privado de administração com sistema básico de tickets, usuários podem fazer sugestões e pedidos através de comandos, que são dispostos de forma organizada para a administração e podem ser marcados como 'Resolvidos' ou 'Em espera'.
+- `!rm [2-100]` **ADMIN** - Deleta certo número de mensagens.
+- `!prune [2-100] [usuário]` **ADMIN** - Deleta mensagens do usuário presentes no range.
+- `!retroceder [id da mensagem]` **ADMIN** - Apaga todas as mensagens até certo ID.
 
-## Modo verbose
+- `!role [usuário]` **ADMIN** - Adiciona o usuário a certo cargo.
+- `!kick [usuário] [razão]` **ADMIN** - Expulsa o usuário do servidor.
+- `!ban [usuário] [razão]` **ADMIN** - Usuário será banido.
 
-![Screenshot Verbose](/data/screenshot/screenshot_verbose.png?raw=true)
+- `!kill` **SUPER ADMIN** - Desliga o bot.
+- `!bot_avatar [url]` **SUPER ADMIN** - Altera o avatar do bot.
 
-Exibe informações coloridas no terminal, caso `verbose` true.
+![Screenshot Administração](/data/screenshot/screenshot_admin1.png?raw=true)
 
-## Logs
+![Screenshot Administração](/data/screenshot/screenshot_admin2.png?raw=true)
 
-![Screenshot Logs](/data/screenshot/screenshot_logs.png?raw=true)
+Suporta um canal privado de administração com sistema básico de tickets, usuários podem fazer sugestões e pedidos através de comandos, que são dispostos de forma organizada para a administração e podem ser marcados como resolvidos.
 
-Mantêm logs de administração em database ou arquivo txt. Em `config.yml` é possível ativar o log de mensagens em todos os canais, que por padrão é desativado por ser desnecessário.
+![Screenshot Transparência](/data/screenshot/screenshot_transparencia.png?raw=true)
+
+Inspirado em alguns servidores, é possível exibir as operações da moderação em um canal (por exemplo, #transparencia).
+
+### Utilidadas gerais
+
+- `!info [opcional: usuário]` - Mostra informações sobre o usuário.
+- `!ping` - Mostra o ping, em ms.
+- `!help` - Comando de ajuda, não exibe opções administrativas.
+
+![Screenshot Transparência](/data/screenshot/screenshot_info.png?raw=true)
+
+### Logs
+
+Mantêm logs administrativos organizados em uma database, e mensagens privadas são mantidas em um arquivo de texto.
 
 ## Contribuição
 
