@@ -1,3 +1,7 @@
+require "mojinizer"
+require "json"
+require "open3"
+
 module Cygnus
   module Cygnus_Commands
     # LÍNGUA JAPONESA
@@ -5,12 +9,8 @@ module Cygnus
     module Japanese
       extend Discordrb::Commands::CommandContainer
 
-      require "mojinizer"
-      require "json"
-      require "open3"
-
       command :jp, description: "[Japonês] Dicionário Japonês > Inglês." do |event, word, def_number = 1|
-        ( event << "\\⚠ :: !jp [palavra] [opcional: número inteiro]"; break ) unless word
+        next "\\⚠ :: !jp [palavra] [opcional: número inteiro]" unless word
 
         jp = JSON.parse( open( "http://jisho.org/api/v1/search/words?keyword=#{word}" ).read )
 
@@ -31,19 +31,19 @@ module Cygnus
       end
 
       command :hiragana, description: "[Japonês] Conversor Romaji > Hiragana." do |event, *words|
-        ( event << "\\⚠ :: !hiragana [palavra]"; break ) if words.empty?
+        next "\\⚠ :: !hiragana [palavra]" if words.empty?
 
         event << words.join( " " ).downcase.hiragana
       end
 
       command :katakana, description: "[Japonês] Conversor Romaji > Katakana." do |event, *words|
-        ( event << "\\⚠ :: !katakana [palavra]"; break ) if words.empty?
+        next "\\⚠ :: !katakana [palavra]" if words.empty?
 
         event << words.join( " " ).downcase.katakana
       end
 
       command :romaji, description: "[Japonês] Conversor Japonês > Romaji." do |event, *kanji|
-        ( event << "\\⚠ :: !romaji [frase]"; break ) if kanji.empty?
+        next "\\⚠ :: !romaji [frase]" if kanji.empty?
 
         romaji = Open3.capture3( "#{DIR_DATA}/sh/japanese.sh", kanji.join( " " ) )
         event.channel.send_embed do |embed|
@@ -53,13 +53,11 @@ module Cygnus
       end
 
       command :jp_info, description: "[Japonês] Informações sobre a língua japonesa." do |event|
-        event << "```"
         event << "http://jisho.org/"
         event << "http://www.guidetojapanese.org/learn/grammar"
         event << "http://maggiesensei.com/"
         event << "https://www.youtube.com/user/freejapaneselessons3"
         event << "https://ankiweb.net/shared/decks/japanese"
-        event << "```"
       end
     end
   end

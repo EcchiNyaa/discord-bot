@@ -59,7 +59,7 @@ module Cygnus
       end
 
       command :anime, description: "[EcchiNyaa] Buscar por animes no catálogo do EcchiNyaa." do |event, *args|
-        ( event << "\\⚠ :: !anime [nome]"; break ) if args.empty?
+        next "\\⚠ :: !anime [nome]" if args.empty?
 
         nyaa = Database.new
         res = nyaa.search "@animes", args.join( " " )
@@ -80,7 +80,7 @@ module Cygnus
       end
 
       command :ecchi, description: "[EcchiNyaa] Buscar por ecchis no catálogo do EcchiNyaa." do |event, *args|
-        ( event << "\\⚠ :: !ecchi [nome]"; break ) if args.empty?
+        next "\\⚠ :: !ecchi [nome]" if args.empty?
 
         nyaa = Database.new
         res = nyaa.search "@ecchis", args.join( " " )

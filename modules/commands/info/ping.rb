@@ -6,7 +6,7 @@ module Cygnus
       extend Discordrb::Commands::CommandContainer
 
       command :ping, help_available: false do |event|
-        event << event.user.mention + " #{( (Time.now - event.timestamp) * 1000 ).to_i} ms."
+        event << "#{( (Time.now - event.timestamp) * 1000 ).to_i}ms, #{event.user.mention}."
       end
     end
   end

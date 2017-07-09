@@ -5,57 +5,65 @@ module Cygnus
     module Administration
       extend Discordrb::Commands::CommandContainer
 
-      command :reportar, description: "[Administração] Reportar problemas ou sugestões." do |event, *args|
-        ( event << "\\⚠ :: !reportar [info]"; break ) if args.empty?
-
-        event.bot.channel( CONFIG["report_command_channel_id"] ).send_embed do |embed|
-          embed.add_field name: "Nome", value: event.user.mention, inline: true
-          embed.add_field name: "Discriminante", value: event.user.distinct, inline: true
-          embed.add_field name: "Informação", value: args.join( " " )
-        end
-      end
-
-      command :kill, help_available: false do |event|
+      command :'bot.kill', help_available: false do |event|
         break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
 
         event.user.pm "Desligando..."
 
-        log = Cygnus::Logger::Log.new "#{DIR_LOG}/Nyaa.log"
-        log.info "⚑ Bot encerrado.", event.user.distinct, "ADMIN"
+        msg = "Desligou o bot."
+        Cygnus::Database::Evento.create mod: event.user.distinct,
+                                        mod_id: event.user.id,
+                                        server_id: event.server.id,
+                                        log: msg
 
         exit # Desliga o bot.
       end
 
-      command :bot_avatar, help_available: false do |event, img|
-        break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
-
-        ( event << "⚠ Uso !bot_avatar [url]"; break ) unless img
+      command :'bot.avatar', help_available: false, required_permissions: [:administrator], permission_message: false do |event, img|
+        next "\\⚠ :: !bot.avatar [url]" unless img
 
         event.bot.profile.avatar = open( img )
         event.user.pm "Sucesso."
 
-        log = Cygnus::Logger::Log.new "#{DIR_LOG}/Nyaa.log"
-        log.info "⚑ Avatar alterado para '#{img}'.", event.user.distinct, "ADMIN"
+        msg = "Alterou o avatar do bot para #{img}."
+        Cygnus::Database::Evento.create mod: event.user.distinct,
+                                        mod_id: event.user.id,
+                                        server_id: event.server.id,
+                                        log: msg
+
+        return nil
       end
 
-      command :kick, help_available: false, required_permissions: [:kick_members] do |event|
-        ( event << "\\⚠ :: !kick [usuário]"; break ) if event.message.mentions.empty?
+      command :kick, help_available: false, required_permissions: [:kick_members], permission_message: false do |event, user, *reason|
+        next "\\⚠ :: !kick [usuário] [razão]" if event.message.mentions.empty? || reason.empty?
 
-        user = event.message.mentions.first.on( event.server )
-        event.server.kick( user )
+        event.server.kick( event.message.mentions.first.on( event.server ) )
 
-        log = Cygnus::Logger::Log.new "#{DIR_LOG}/Admin.log"
-        log.info "⚑ Usuário '#{user.distinct}' foi kickado.", event.user.distinct, "ADMIN"
+        log = Cygnus::Database::Afastamento.create user: event.message.mentions.first.on( event.server ).distinct,
+                                                   user_id: event.message.mentions.first.on( event.server ).id,
+                                                   mod: event.user.distinct,
+                                                   mod_id: event.user.id,
+                                                   server_id: event.server.id,
+                                                   reason: reason.join( " " ),
+                                                   status: "Expulso"
+
+        log.transparency if CONFIG["transparency"]
       end
 
-      command :ban, help_available: false, required_permissions: [:ban_members] do |event, user|
-        ( event << "\\⚠ :: !ban [usuário]"; break ) if event.message.mentions.empty?
+      command :ban, help_available: false, required_permissions: [:kick_members], permission_message: false do |event, user, *reason|
+        next "\\⚠ :: !ban [usuário] [razão]" if event.message.mentions.empty? || reason.empty?
 
-        user = event.message.mentions.first.on( event.server )
-        event.server.ban( user )
+        event.server.kick( event.message.mentions.first.on( event.server ) )
 
-        log = Cygnus::Logger::Log.new "#{DIR_LOG}/Admin.log"
-        log.info "⚑ Usuário '#{user.distinct}' foi banido.", event.user.distinct, "ADMIN"
+        log = Cygnus::Database::Afastamento.create user: event.message.mentions.first.on( event.server ).distinct,
+                                                   user_id: event.message.mentions.first.on( event.server ).id,
+                                                   mod: event.user.distinct,
+                                                   mod_id: event.user.id,
+                                                   server_id: event.server.id,
+                                                   reason: reason.join( " " ),
+                                                   status: "Banido"
+
+        log.transparency if CONFIG["transparency"]
       end
     end
   end
