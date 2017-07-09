@@ -73,8 +73,8 @@ Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas
 - `!kick [usuário] [razão]` **ADMIN** - Expulsa o usuário do servidor.
 - `!ban [usuário] [razão]` **ADMIN** - Usuário será banido.
 
-- `!kill` **SUPER ADMIN** - Desliga o bot.
-- `!bot_avatar [url]` **SUPER ADMIN** - Altera o avatar do bot.
+- `!bot.kill` **SUPER ADMIN** - Desliga o bot.
+- `!bot.avatar [url]` **SUPER ADMIN** - Altera o avatar do bot.
 
 ![Screenshot Administração](/data/screenshot/screenshot_admin1.png?raw=true)
 
@@ -86,10 +86,10 @@ Suporta um canal privado de administração com sistema básico de tickets, usu�
 
 Inspirado em alguns servidores, é possível exibir as operações da moderação em um canal (por exemplo, #transparencia).
 
-### Utilidadas gerais
+### Utilidades gerais
 
 - `!info [opcional: usuário]` - Mostra informações sobre o usuário.
-- `!ping` - Mostra o ping, em ms.
+- `!ping` - Exibe o ping em milissegundos.
 - `!help` - Comando de ajuda, não exibe opções administrativas.
 
 ![Screenshot Transparência](/data/screenshot/screenshot_info.png?raw=true)
