@@ -12,7 +12,12 @@ module Cygnus
   # Inclui todos os arquivos do diretório /modules
   # em seu determinado módulo.
 
-  bot = Discordrb::Commands::CommandBot.new token: CONFIG["token"], client_id: CONFIG["client_id"], prefix: CONFIG["prefix"]
+  BOT = Discordrb::Commands::CommandBot.new \
+    no_permission_message: "Não tenho permissão para fazer isso!",
+    token: CONFIG["token"],
+    client_id: CONFIG["client_id"],
+    prefix: CONFIG["prefix"],
+    help_command: false
 
   # Importa os módulos e inclui cada constante.
   Dir["#{DIR}/modules/*.rb"].each              { |file| require file }
@@ -20,12 +25,12 @@ module Cygnus
   Dir["#{DIR}/modules/events/*.rb"].each       { |file| require file }
 
   Cygnus_Commands.constants.each do |command|
-    bot.include! Cygnus_Commands.const_get command
+    BOT.include! Cygnus_Commands.const_get command
   end
 
   Cygnus_Events.constants.each do |event|
-    bot.include! Cygnus_Events.const_get event
+    BOT.include! Cygnus_Events.const_get event
   end
 
-  bot.run
+  BOT.run
 end
