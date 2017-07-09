@@ -1,21 +1,23 @@
-token: "VALOR"
-client_id: "VALOR"
+# API do Discord.
+token: "00000000000000000000000000000000000000000000000000000000000"
+client_id: "000000000000000000"
 prefix: "!"
 
-# Usuários com autorização suprema.
-# ID separado por espaço.
+# Usuários autorizados a efetuar operações perigosas.
+# IDs separados por espaços.
 super_admin: "000000000000000000 000000000000000000"
 
 # Ferramentas administrativas.
 # Os três podem ser direcionados para o mesmo ID.
-admin_channel_id: "000000000000000000"
-joined_event_channel_id: "000000000000000000"
-report_command_channel_id: "000000000000000000"
+admin_channel_id: 000000000000000000
+join_part_channel_id: 000000000000000000
 
-# Logger Module
+# Mantêm PMs em /data/logs/PM.log.
+# A primeira opção mantêm log de TODAS as mensagens.
+log_server_messages: false
 log_private_messages: true
-log_server_messages_to_file: true
 
-# Mostra mensagens direcionadas ao log no terminal,
-# o terminal deve suportar cores.
-verbose: false
+# Transparência.
+# Exibe um relatório após banimentos e expulsões.
+transparency: true
+transparency_channel_id: 000000000000000000
