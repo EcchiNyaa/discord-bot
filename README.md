@@ -1,3 +1,6 @@
+[![License: MIT](https://img.shields.io/badge/license-MIT%20Licence-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=flat-square)](https://github.com/EcchiNyaa/discord-bot)
+
 # Nyaa Bot
 
 1. Faça uma cópia do arquivo `config/config-default.yml` para `config/config.yml`.
