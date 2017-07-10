@@ -3,10 +3,10 @@ require "yaml"            # Config Files.
 
 # GLOBAL CONSTANTS.
 DIR      =  File.dirname(__FILE__)
-DIR_DB   =  DIR+"/database"
-DIR_DATA =  DIR+"/data"
-DIR_LOG  =  DIR_DATA+"/logs"
-CONFIG   =  YAML.load_file DIR+"/config/config.yml"
+DIR_DB   =  DIR + "/database"
+DIR_DATA =  DIR + "/data"
+DIR_LOG  =  DIR_DATA + "/logs"
+CONFIG   =  YAML.load_file DIR + "/config/config.yml"
 
 module Cygnus
   # Inclui todos os arquivos do diretório /modules
