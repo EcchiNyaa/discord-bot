@@ -48,15 +48,15 @@ module Cygnus
         end
       end
 
-      command :"anime.atualizar" do |event|
-        break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
+      command :"anime.atualizar", help_available: false,
+               permission_level: 4 do |event|
 
         Cygnus::Database::Anime.update!
         "Sucesso!"
       end
 
-      command :"ecchi.atualizar" do |event|
-        break unless CONFIG["super_admin"].split( " " ).include? event.user.id.to_s
+      command :"ecchi.atualizar", help_available: false,
+               permission_level: 4 do |event|
 
         Cygnus::Database::Ecchi.update!
         "Sucesso!"

@@ -5,9 +5,11 @@ module Cygnus
     module Roles
       extend Discordrb::Commands::CommandContainer
 
-      command :role, help_available: false, required_permissions: [:manage_roles], permission_message: false do |event, user, *args|
-        next "\\⚠ :: !role [usuário] [cargo]" if event.message.mentions.empty? || args.empty?; role = args.join " "
-        next "\\⚠ :: Cargo \"#{role}\" não existe!" unless role = event.server.roles.find { |r| r.name == role }
+      command :role, help_available: false,
+               permission_level: 4, permission_message: false do |event, user, *args|
+
+        next "\\⚠ :: !role [usuário] [cargo]" if event.message.mentions.empty? || args.empty?
+        next "\\⚠ :: Cargo \"#{args.join}\" não existe!" unless role = event.server.roles.find { |r| r.name == args.join }
 
         user = event.message.mentions.first.on( event.server )
 
@@ -21,7 +23,7 @@ module Cygnus
                                           server_id: event.server.id,
                                           log: log
 
-          return nil
+          nil
         else
           user.add_role role
           event << user.mention + " foi adicionado ao cargo \"#{role.name}\"!"
@@ -32,7 +34,7 @@ module Cygnus
                                           server_id: event.server.id,
                                           log: log
 
-          return nil
+          nil
         end
       end
     end

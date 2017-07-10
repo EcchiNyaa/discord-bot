@@ -6,7 +6,9 @@ module Cygnus
       extend Discordrb::Commands::CommandContainer
 
       # Apaga certo número de mensagens.
-      command :rm, help_available: false, required_permissions: [:manage_messages], permission_message: false do |event, num|
+      command :rm, help_available: false,
+               permission_level: 2, permission_message: false do |event, num|
+
         next "\\⚠ :: !rm [2-100]" unless num
         next "\\⚠ :: Não está entre o intervalo permitido." unless num.to_i >= 2 && num.to_i <= 100
 
@@ -18,11 +20,13 @@ module Cygnus
                                         server_id: event.server.id,
                                         log: msg
 
-        return nil
+        nil
       end
 
       # Retrocede até certa mensagem.
-      command :retroceder, help_available: false, required_permissions: [:manage_messages], permission_message: false do |event, id|
+      command :retroceder, help_available: false,
+               permission_level: 2, permission_message: false do |event, id|
+
         next "\\⚠ :: !retroceder (até) [id]" unless id
         next "\\⚠ :: Número fornecido não parece um ID." unless id.length == 18
 
@@ -35,11 +39,13 @@ module Cygnus
                                         server_id: event.server.id,
                                         log: log
 
-        return nil
+        nil
       end
 
       # Deleta mensagens de um usuário dentro de um certo intervalo.
-      command :prune, help_available: false, required_permissions: [:manage_messages], permission_message: false do |event, num|
+      command :prune, help_available: false,
+               permission_level: 2, permission_message: false do |event, num|
+
         next "\\⚠ :: !prune [2-100] [usuário]" if event.message.mentions.empty? || ! num
         next "\\⚠ :: Não está entre o intervalo permitido." unless num.to_i >= 2 && num.to_i <= 100
 
@@ -58,7 +64,7 @@ module Cygnus
                                         server_id: event.server.id,
                                         log: log
 
-        return nil
+        nil
       end
     end
   end
