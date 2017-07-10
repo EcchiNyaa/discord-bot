@@ -1,12 +1,16 @@
-require "discordrb"       # Discord API.
-require "yaml"            # Config Files.
+require "discordrb"
+require "yaml"
 
-# GLOBAL CONSTANTS.
+# Constantes.
+# Podem ser acessadas em qualquer parte do código.
 DIR      =  File.dirname(__FILE__)
 DIR_DB   =  DIR + "/database"
 DIR_DATA =  DIR + "/data"
 DIR_LOG  =  DIR_DATA + "/logs"
 CONFIG   =  YAML.load_file DIR + "/config/config.yml"
+
+Discordrb::LOGGER.streams << File.open( "#{DIR_LOG}/Nyaa.log", "a" )
+Discordrb::LOGGER.info "Iniciando Nyaa versão #{`cd #{DIR} && git log -1 --format="%h"`}"
 
 module Cygnus
   # Inclui todos os arquivos do diretório /modules
@@ -19,7 +23,7 @@ module Cygnus
     prefix: CONFIG["prefix"],
     help_command: false
 
-  # Importa os módulos e inclui cada constante.
+  # Importa e inclui cada um dos módulos.
   Dir["#{DIR}/modules/*.rb"].each              { |file| require file }
   Dir["#{DIR}/modules/commands/**/*.rb"].each  { |file| require file }
   Dir["#{DIR}/modules/events/*.rb"].each       { |file| require file }
