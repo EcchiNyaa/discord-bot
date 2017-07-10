@@ -1,5 +1,5 @@
-require 'sequel'
-require 'sqlite3'
+require "sequel"
+require "sqlite3"
 
 module Cygnus
   module Cygnus_Commands
@@ -12,24 +12,24 @@ module Cygnus
       greet = ["Onii-chan", "Onii-sama", "Master", "Nii-san", "Nii-chan", "Nii-nii"]
 
       command :imouto, description: "[Mini-game] Solicitar imoutos (4 horas)." do |event, arg|
-        user = Cygnus::Database::ImoutoUser.where(  :user => event.user.id ).first
-        user = Cygnus::Database::ImoutoUser.create( :user => event.user.id ) if user == nil
+        user = Cygnus::Database::ImoutoUser.where( user: event.user.id ).first
+        user = Cygnus::Database::ImoutoUser.create( user: event.user.id ) if user.nil?
 
-        amount = rand( 10 .. 100 )
+        amount = rand( 10..100 )
         user.imoutos += amount
         user.save ? "Você ganhou #{amount} imoutos, #{greet.sample}!" : "Tente novamente mais tarde, #{greet.sample}."
       end
 
       command :imoutos, description: "[Mini-game] Checar quantidade de imoutos." do |event|
         event.message.mentions.empty? ? e = event.user : e = event.message.mentions.first
-        user = Cygnus::Database::ImoutoUser.where( :user => e.id ).first
-        next "Usuário não registrado, insira !imouto." if user == nil
+        user = Cygnus::Database::ImoutoUser.where( user: e.id ).first
+        next "Usuário não registrado, insira !imouto." if user.nil?
 
         achievements = [
-          { :id => 0, :rank => "Onii-san Eventual", :required_imoutos => 0, :color => "6B8E23" },
-          { :id => 1, :rank => "Onii-san Regular", :required_imoutos => 300, :color => "00FFFF" },
-          { :id => 2, :rank => "Onii-san Adorado", :required_imoutos => 900, :color => "FFD700" },
-          { :id => 3, :rank => "Master Onii-san", :required_imoutos => 3999, :color => "DF0174" }
+          { id: 0, rank: "Onii-san Eventual", required_imoutos: 0, color: "6B8E23" },
+          { id: 1, rank: "Onii-san Regular", required_imoutos: 300, color: "00FFFF" },
+          { id: 2, rank: "Onii-san Adorado", required_imoutos: 900, color: "FFD700" },
+          { id: 3, rank: "Master Onii-san", required_imoutos: 3999, color: "DF0174" }
         ]
 
         for achievement in achievements do

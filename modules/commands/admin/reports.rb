@@ -21,12 +21,12 @@ module Cygnus
         t_number = num
         t_number = num[1..-1] if num.start_with? "#"
 
-        ticket = Cygnus::Database::Report.where( :id => t_number.to_i ).first
+        ticket = Cygnus::Database::Report.where( id: t_number.to_i ).first
         next "Ticket não encontrado." if ticket.nil?
         next ticket.show if option.nil?
 
-        ticket.update :status => 0 if option.downcase == "fechar"
-        ticket.update :status => 1 if option.downcase == "abrir"
+        ticket.update status: 0 if option.casecmp? "fechar"
+        ticket.update status: 1 if option.casecmp? "abrir"
         ticket.save ? "Sucesso!" : "Ocorreu um erro."
       end
 
@@ -34,12 +34,12 @@ module Cygnus
       command :'ticket.del', help_available: false, required_permissions: [:manage_messages], permission_message: false do |event, user|
         next "\\⚠ :: !ticket.del [usuário]" if event.message.mentions.empty?
 
-        Cygnus::Database::Report.where( :id => event.message.mentions.first.id ).delete
+        Cygnus::Database::Report.where( id: event.message.mentions.first.id ).delete
         "Sucesso!"
       end
 
       command :tickets, help_available: false, required_permissions: [:manage_messages], permission_message: false do |event|
-        ticket = Cygnus::Database::Report.where( :status => 1 ).limit( 5 ).reverse_order :id
+        ticket = Cygnus::Database::Report.where( status: 1 ).limit( 5 ).reverse_order :id
 
         msg = []
         msg << "**ÚLTIMOS 10 TICKETS EM ABERTO**"

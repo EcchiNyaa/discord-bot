@@ -7,7 +7,7 @@ module Cygnus
 
     class ImoutoUser < Sequel::Model IMOUTO[:users]
       def validate
-        return if updated_on == nil
+        return if updated_on.nil?
 
         seconds_passed = Time.now - updated_on
         interval = 4 * 3600

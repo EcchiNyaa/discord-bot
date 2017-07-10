@@ -1,5 +1,6 @@
-config/config.yml
-database/*.db
-/data/logs/txt/*.txt
-/data/logs/*.log
+.rubocop*
 Gemfile.lock
+config/config.yml
+*txt
+*log
+*db
