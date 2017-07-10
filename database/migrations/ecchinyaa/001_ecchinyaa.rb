@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key :id
 
       String :nome
-      String :link
+      String :link, unique: true
       String :cover
       String :sinopse
       String :fansub
@@ -16,7 +16,7 @@ Sequel.migration do
       primary_key :id
 
       String :nome
-      String :link
+      String :link, unique: true
       String :cover
       String :sinopse
       String :fansub
@@ -28,8 +28,8 @@ Sequel.migration do
     create_table :eroges do
       primary_key :id
 
-      String :nome, unique: true
-      String :link
+      String :nome
+      String :link, unique: true
       String :cover
       String :idioma
 
