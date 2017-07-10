@@ -1,4 +1,5 @@
 ![MIT License](https://img.shields.io/badge/license-MIT%20Licence-blue.svg?style=flat-square)
+![Code Climate](https://img.shields.io/codeclimate/github/EcchiNyaa/discord-bot.svg?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/EcchiNyaa/discord-bot.svg?style=flat-square)
 ![Github Releases](https://img.shields.io/github/release/EcchiNyaa/discord-rb.svg?style=flat-square)
 
@@ -15,8 +16,9 @@
 - [x] Implementar um módulo de logs.
 - [ ] Reimplementar busca de eroges (revertida).
 - [ ] Implementar modo daemon + systemd.
+- [ ] Revisão geral do código para otimização.
 
-Nyaa será considerado estável ao cumprir as metas acima.
+Nyaa será considerado estável (v1.0) após cumprir as metas acima.
 
 - [ ] Integração com outras plataformas, como MAL e VNDB.
 - [ ] Incluir busca por personagens e staff.
@@ -69,7 +71,7 @@ Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas
 - `!tickets` **ADMIN** - Lista os últimos 10 tickets pendentes.
 - `!ticket #2` **ADMIN** - Mostra o ticket #2.
 - `!ticket #2 fechar` **ADMIN** - Fecha o ticket #2.
-- `!ticket #2 abrir` **ADMIN** - Reabre o ticket #2.
+- `!ticket.autolimpeza` **ADMIN** - Fecha tickets abertos a mais de uma semana.
 - `!ticket.del [usuário]` **ADMIN** - Remove todos os tickets do usuário.
 - `!rm [2-100]` **ADMIN** - Deleta certo número de mensagens.
 - `!prune [2-100] [usuário]` **ADMIN** - Deleta mensagens do usuário presentes no range.
@@ -77,8 +79,9 @@ Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas
 - `!role [usuário]` **ADMIN** - Adiciona o usuário a certo cargo.
 - `!kick [usuário] [razão]` **ADMIN** - Expulsa o usuário do servidor.
 - `!ban [usuário] [razão]` **ADMIN** - Usuário será banido.
-- `!bot.kill` **SUPER ADMIN** - Desliga o bot.
-- `!bot.avatar [url]` **SUPER ADMIN** - Altera o avatar do bot.
+- `!bot.kill` **ADMIN** - Desliga o bot.
+- `!bot.reiniciar` **ADMIN** - Reinicia e sincroniza o bot com github.
+- `!bot.avatar [url]` **ADMIN** - Altera o avatar do bot.
 
 ![Screenshot Administração](/data/screenshot/screenshot_admin1.png?raw=true)
 
@@ -99,6 +102,17 @@ Inspirado em alguns servidores, é possível exibir as operações da moderaçã
 ![Screenshot Transparência](/data/screenshot/screenshot_info.png?raw=true)
 
 ### Logs
+
+- `!log` **ADMIN** - Envia o log de erros em txt.
+- `!log.rm` **ADMIN** - Limpa o log de erros.
+- `!query.eventos #2` **ADMIN** - Mostra o evento (ações da moderação) #2.
+- `!query.eventos total` **ADMIN** - Mostra o total de ações da moderação.
+- `!query.eventos txt` **ADMIN** - Envia o log das ações da moderação em txt.
+- `!query.afastamentos #2` **ADMIN** - Mostra a punição #2.
+- `!query.afastamentos total` **ADMIN** - Mostra o total de punições.
+- `!query.afastamentos txt.log` **ADMIN** - Envia o log de usuários punidos em txt.
+
+![Screenshot Logs](/data/screenshot/screenshot_logs.png?raw=true)
 
 Mantêm logs administrativos organizados em uma database, e mensagens privadas são mantidas em um arquivo de texto. Log global (i.e. de todos os canais) é desativado por padrão, mas pode ser ativado editando `config.yml`.
 
