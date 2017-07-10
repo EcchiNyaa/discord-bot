@@ -48,8 +48,8 @@ Quer sugerir uma função? Crie uma `issue`.
 
 - `!anime [nome]` - Busca por animes no catálogo do EcchiNyaa.
 - `!ecchi [nome]` - Busca por ecchis no catálogo do EcchiNyaa.
-- `!anime.atualizar` (ADMIN) - Sincroniza a DB manualmente.
-- `!ecchi.atualizar` (ADMIN) - Sincroniza a DB manualmente.
+- `!anime.atualizar` **ADMIN** - Sincroniza a DB manualmente.
+- `!ecchi.atualizar` **ADMIN** - Sincroniza a DB manualmente.
 
 Busca por eroges revertida temporariamente, será reescrita para utilizar também informações do VNDB.
 
@@ -62,25 +62,19 @@ Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas
 ### Módulo administrativo.
 
 - `!reportar [issue]` - Abre um ticket e o envia a moderação.
-- `!tickets` (ADMIN) - Lista os últimos 10 tickets pendentes.
-- `!ticket #2` (ADMIN) - Mostra o ticket #2.
-- `!ticket #2 fechar` (ADMIN) - Fecha o ticket #2.
-- `!ticket #2 abrir` (ADMIN) - Reabre o ticket #2.
-- `!ticket.del [usuário]` (ADMIN) - Remove todos os tickets do usuário.
-
-
-- `!rm [2-100]` (ADMIN) - Deleta certo número de mensagens.
-- `!prune [2-100] [usuário]` (ADMIN) - Deleta mensagens do usuário presentes no range.
-- `!retroceder [id da mensagem]` (ADMIN) - Apaga todas as mensagens até certo ID.
-
-
-- `!role [usuário]` (ADMIN) - Adiciona o usuário a certo cargo.
-- `!kick [usuário] [razão]` (ADMIN) - Expulsa o usuário do servidor.
-- `!ban [usuário] [razão]` (ADMIN) - Usuário será banido.
-
-
-- `!bot.kill` (SUPER ADMIN) - Desliga o bot.
-- `!bot.avatar [url]` (SUPER ADMIN) - Altera o avatar do bot.
+- `!tickets` **ADMIN** - Lista os últimos 10 tickets pendentes.
+- `!ticket #2` **ADMIN** - Mostra o ticket #2.
+- `!ticket #2 fechar` **ADMIN** - Fecha o ticket #2.
+- `!ticket #2 abrir` **ADMIN** - Reabre o ticket #2.
+- `!ticket.del [usuário]` **ADMIN** - Remove todos os tickets do usuário.
+- `!rm [2-100]` **ADMIN** - Deleta certo número de mensagens.
+- `!prune [2-100] [usuário]` **ADMIN** - Deleta mensagens do usuário presentes no range.
+- `!retroceder [id da mensagem]` **ADMIN** - Apaga todas as mensagens até certo ID.
+- `!role [usuário]` **ADMIN** - Adiciona o usuário a certo cargo.
+- `!kick [usuário] [razão]` **ADMIN** - Expulsa o usuário do servidor.
+- `!ban [usuário] [razão]` **ADMIN** - Usuário será banido.
+- `!bot.kill` **SUPER ADMIN** - Desliga o bot.
+- `!bot.avatar [url]` **SUPER ADMIN** - Altera o avatar do bot.
 
 ![Screenshot Administração](/data/screenshot/screenshot_admin1.png?raw=true)
 
