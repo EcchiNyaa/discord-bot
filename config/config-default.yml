@@ -3,12 +3,19 @@ token: "00000000000000000000000000000000000000000000000000000000000"
 client_id: "000000000000000000"
 prefix: "!"
 
-# Usuários autorizados a efetuar operações perigosas.
-# IDs separados por espaços.
-super_admin: "000000000000000000 000000000000000000"
+# Nome do cargo para cada permissão.
+# developer -> Pode manipular logs para debug, reiniciar e desligar o bot.
+# admin -> Pode banir usuários.
+# moderator -> Pode kickar usuários.
+# colaborator -> Pode manipular tickets.
+server_id: 000000000000000000
+developer: "dev"
+admin: "admin"
+moderator: "mod"
+colaborator: "trusted"
 
 # Ferramentas administrativas.
-# Os três podem ser direcionados para o mesmo ID.
+# As duas opções podem ser direcionadas para o mesmo ID.
 admin_channel_id: 000000000000000000
 join_part_channel_id: 000000000000000000
 
