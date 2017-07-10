@@ -1,5 +1,6 @@
-[![License: MIT](https://img.shields.io/badge/license-MIT%20Licence-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=flat-square)](https://github.com/EcchiNyaa/discord-bot)
+![MIT License](https://img.shields.io/badge/license-MIT%20Licence-blue.svg?style=flat-square)
+![GitHub Issues](https://img.shields.io/github/issues/EcchiNyaa/discord-bot.svg?style=flat-square)
+![Github Releases](https://img.shields.io/github/release/EcchiNyaa/discord-rb.svg?style=flat-square)
 
 # Nyaa Bot
 
