@@ -1,11 +1,11 @@
 ![Screenshot](/data/screenshot/screenshot.png?raw=true)
 
-<br>
-
 ![MIT License](https://img.shields.io/badge/license-MIT%20Licence-blue.svg?style=flat-square)
 ![Code Climate](https://img.shields.io/codeclimate/github/EcchiNyaa/discord-bot.svg?style=flat-square)
 ![GitHub Issues](https://img.shields.io/github/issues/EcchiNyaa/discord-bot.svg?style=flat-square)
 ![Github Releases](https://img.shields.io/github/release/EcchiNyaa/discord-rb.svg?style=flat-square)
+
+<br>
 
 > "I hope you reread this years from now and commit suicide from the shame." <br>
 > -- Senri Akane.
