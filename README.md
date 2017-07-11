@@ -3,6 +3,9 @@
 ![GitHub Issues](https://img.shields.io/github/issues/EcchiNyaa/discord-bot.svg?style=flat-square)
 ![Github Releases](https://img.shields.io/github/release/EcchiNyaa/discord-rb.svg?style=flat-square)
 
+> "I hope you reread ~~this~~ (your code) years from now and commit suicide from the shame."
+> -- Senri Akane.
+
 # Nyaa Bot
 
 1. Faça uma cópia do arquivo `config/config-default.yml` para `config/config.yml`.
@@ -115,6 +118,10 @@ Inspirado em alguns servidores, é possível exibir as operações da moderaçã
 ![Screenshot Logs](/data/screenshot/screenshot_logs.png?raw=true)
 
 Mantêm logs administrativos organizados em uma database, e mensagens privadas são mantidas em um arquivo de texto. Log global (i.e. de todos os canais) é desativado por padrão, mas pode ser ativado editando `config.yml`.
+
+## Mais informações
+
+Diretamente com AkiraLeir ou Mitki.
 
 ## Contribuição
 
