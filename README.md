@@ -3,7 +3,7 @@
 ![GitHub Issues](https://img.shields.io/github/issues/EcchiNyaa/discord-bot.svg?style=flat-square)
 ![Github Releases](https://img.shields.io/github/release/EcchiNyaa/discord-rb.svg?style=flat-square)
 
-> "I hope you reread ~~this~~ (your code) years from now and commit suicide from the shame."
+> "I hope you reread this years from now and commit suicide from the shame." <br>
 > -- Senri Akane.
 
 # Nyaa Bot
