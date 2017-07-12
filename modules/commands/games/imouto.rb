@@ -50,6 +50,7 @@ module Cygnus
 
       command :imouto_top, help_available: false do |event|
         top5 = Cygnus::Database::ImoutoUser.limit( 5 ).reverse_order :imoutos
+        next "Nenhum jogador registrado!" unless top5.count > 0
 
         event << "```"
         event << "IMOUTOS\n"; count = 0
