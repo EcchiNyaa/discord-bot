@@ -3,12 +3,11 @@ token: "00000000000000000000000000000000000000000000000000000000000"
 client_id: 000000000000000000
 prefix: "!"
 
-# Nome do cargo para cada permissão.
+# Nome do cargo para cada permissão, os canais DEVEM EXISTIR.
 # developer -> Pode manipular logs para debug, reiniciar e desligar o bot.
 # admin -> Pode banir usuários.
 # moderator -> Pode kickar usuários.
 # colaborator -> Pode manipular tickets.
-server_id: 000000000000000000
 developer: "dev"
 admin: "admin"
 moderator: "mod"
