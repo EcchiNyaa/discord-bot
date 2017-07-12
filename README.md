@@ -17,12 +17,18 @@
 3. Execute `bundler` no diretório para instalar as dependências.
 4. Para iniciar o bot, basta executar `./start`.
 
+## Dependências adicionais
+
+**Nyaa não é compatível com Windows.**<br>
+Instale "Kakasi" caso pretenda utilizar o módulo língua japonesa.
+
 ## Planos
 
 - [x] Otimizar comando !help
 - [x] Implementar um módulo de logs.
 - [ ] Reimplementar busca de eroges (revertida).
 - [ ] Implementar modo daemon + systemd.
+- [ ] Guia de fácil deploy com Docker.
 - [ ] Revisão geral do código para otimização.
 
 Nyaa será considerado estável (v1.0) após cumprir as metas acima.
@@ -81,6 +87,7 @@ Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas
 - `!ticket.autolimpeza` **ADMIN** - Fecha tickets abertos a mais de uma semana.
 - `!ticket.del [usuário]` **ADMIN** - Remove todos os tickets do usuário.
 - `!rm [2-100]` **ADMIN** - Deleta certo número de mensagens.
+- `!limpar [2-100]` **ADMIN** - Remove as mensagens do bot presentes no range.
 - `!prune [2-100] [usuário]` **ADMIN** - Deleta mensagens do usuário presentes no range.
 - `!retroceder [id da mensagem]` **ADMIN** - Apaga todas as mensagens até certo ID.
 - `!role [usuário]` **ADMIN** - Adiciona o usuário a certo cargo.
