@@ -16,7 +16,7 @@ module Cygnus
           embed.add_field name: "Usuário", value: user, inline: true
           embed.add_field name: "Status", value: "ABERTO" if status == 1
           embed.add_field name: "Data da abertura", value: created_on.strftime( "%d/%m/%Y %H:%M" ), inline:true
-          embed.add_field name: "Concluído em:", value: updated_on.strftime( "%d/%m/%Y %H:%M" ), inline: true unless updated_on.nil?
+          embed.add_field name: "Data de conclusão", value: updated_on.strftime( "%d/%m/%Y %H:%M" ), inline: true unless updated_on.nil?
           embed.add_field name: "Conteúdo", value: content
         end
       end
