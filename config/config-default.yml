@@ -1,6 +1,6 @@
 # API do Discord.
 token: "00000000000000000000000000000000000000000000000000000000000"
-client_id: "000000000000000000"
+client_id: 000000000000000000
 prefix: "!"
 
 # Nome do cargo para cada permissão.
