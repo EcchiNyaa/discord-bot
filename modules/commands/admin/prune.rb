@@ -66,6 +66,28 @@ module Cygnus
 
         nil
       end
+
+      command :limpar, help_available: false,
+               permission_level: 2, permission_message: false do |event, num|
+
+        next "\\⚠ :: !limpar [2-100]" unless num
+        next "\\⚠ :: Não está entre o intervalo permitido." unless num.to_i >= 2 && num.to_i <= 100
+
+        msg = []
+        event.channel.history( num.to_i ).count do |h|
+          msg.push h if h.author.id == CONFIG["client_id"]
+        end
+
+        event.channel.delete_messages msg
+
+        log = "Limpou #{msg.length} mensagens do bot em ##{event.channel.name}."
+        Cygnus::Database::Evento.create mod: event.user.distinct,
+                                        mod_id: event.user.id,
+                                        server_id: event.server.id,
+                                        log: log
+
+        nil
+      end
     end
   end
 end
