@@ -9,16 +9,18 @@ module Cygnus
 
       ready do |event|
         server_roles = [
-          { server_id: CONFIG["server_id"], role: CONFIG["developer"], permission: 4 },
-          { server_id: CONFIG["server_id"], role: CONFIG["admin"], permission: 3 },
-          { server_id: CONFIG["server_id"], role: CONFIG["moderator"], permission: 2 },
-          { server_id: CONFIG["server_id"], role: CONFIG["colaborator"], permission: 1 }
+          { role: CONFIG["developer"], permission: 4 },
+          { role: CONFIG["admin"], permission: 3 },
+          { role: CONFIG["moderator"], permission: 2 },
+          { role: CONFIG["colaborator"], permission: 1 }
         ]
 
-        server_roles.each do |hash|
-          next unless role = event.bot.server( CONFIG["server_id"] ).roles.find { |r| r.name == hash[:role] }
+        server_roles.each do |roles|
+         event.bot.servers.values.map(&:id).each do |server|
+            next unless role = event.bot.server( server ).roles.find { |r| r.name == roles[:role] }
 
-          BOT.set_role_permission role.id, hash[:permission]
+            BOT.set_role_permission role.id, roles[:permission]
+          end
         end
       end
     end
