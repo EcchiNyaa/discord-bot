@@ -5,7 +5,8 @@ module Cygnus
     module Version
       extend Discordrb::EventContainer
 
-      mention do |event|
+      # Checa se a mensagem contem apenas uma mention.
+      message contains: /^<@!?#{CONFIG["client_id"]}>$/ do |event|
         version = `cd #{DIR} && git log -1 --format="%h (%ar)"`.strip
         ram = ( `ps -o rss= -p #{Process.pid}`.to_i / 1024 ).to_s + " MB"
 
