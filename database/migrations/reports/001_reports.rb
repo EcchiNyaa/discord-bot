@@ -15,6 +15,6 @@ Sequel.migration do
   end
 
   down do
-    drop_table(:users)
+    drop_table(:reports)
   end
 end

@@ -26,7 +26,7 @@ Sequel.migration do
     end
   end
   down do
-    drop_table(:afastamentos)
-    drop_table(:moderacao)
+    drop_table(:status)
+    drop_table(:eventos)
   end
 end
