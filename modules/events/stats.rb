@@ -21,7 +21,6 @@ module Cygnus
 
         next unless event.message.content.start_with? CONFIG["prefix"]
 
-        db = Cygnus::Database::Stats.where( server_id: event.server.id ).first
         db.commands += 1
         db.save
       end
