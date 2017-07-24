@@ -1,7 +1,7 @@
 module Cygnus
   module Cygnus_Events
     # MÓDULO DE JOIN / PART
-    # Anuncia no canal definido em config.yml o fluxo de entrada e saida do servidor..
+    # Anuncia no canal definido em config.yml o fluxo de entrada e saida do servidor.
     module Join_Announcer
       extend Discordrb::EventContainer
 
