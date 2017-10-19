@@ -2,17 +2,15 @@ require "mojinizer"
 require "json"
 require "open3"
 
-module Cygnus
-  module Cygnus_Commands
-    # LÍNGUA JAPONESA
-    # Fornece definições e romanização, só é compatível com Linux.
+module Nyaa
+  module Commands
     module Japanese
       extend Discordrb::Commands::CommandContainer
 
-      command :jp, description: "[Japonês] Dicionário Japonês > Inglês." do |event, word, def_number = 1|
+      command(:jp, description: "Japonês; Dicionário Japonês > Inglês.") do |event, word, def_number = 1|
         next "\\⚠ :: !jp [palavra] [opcional: número inteiro]" unless word
 
-        jp = JSON.parse( open( "http://jisho.org/api/v1/search/words?keyword=#{word}" ).read )
+        jp = JSON.parse(open("http://jisho.org/api/v1/search/words?keyword=#{word}").read)
 
         def_number = 1 if def_number.to_i == 0
         def_number = def_number.to_i - 1
@@ -30,19 +28,19 @@ module Cygnus
         end
       end
 
-      command :hiragana, description: "[Japonês] Conversor Romaji > Hiragana." do |event, *words|
+      command(:hiragana, description: "Japonês; Conversor Romaji > Hiragana.") do |event, *words|
         next "\\⚠ :: !hiragana [palavra]" if words.empty?
 
-        event << words.join( " " ).downcase.hiragana
+        event << words.join(" ").downcase.hiragana
       end
 
-      command :katakana, description: "[Japonês] Conversor Romaji > Katakana." do |event, *words|
+      command(:katakana, description: "Japonês; Conversor Romaji > Katakana.") do |event, *words|
         next "\\⚠ :: !katakana [palavra]" if words.empty?
 
-        event << words.join( " " ).downcase.katakana
+        event << words.join(" ").downcase.katakana
       end
 
-      command :romaji, description: "[Japonês] Conversor Japonês > Romaji." do |event, *kanji|
+      command(:romaji, description: "Japonês; Conversor Japonês > Romaji.") do |event, *kanji|
         next "\\⚠ :: !romaji [frase]" if kanji.empty?
 
         romaji = Open3.capture3( "#{DIR_DATA}/sh/japanese.sh", kanji.join( " " ) )
@@ -52,7 +50,7 @@ module Cygnus
         end
       end
 
-      command :jp_info, description: "[Japonês] Informações sobre a língua japonesa." do |event|
+      command(:jp_info, description: "Japonês; Informações sobre a língua japonesa.") do |event|
         event << "http://jisho.org/"
         event << "http://www.guidetojapanese.org/learn/grammar"
         event << "http://maggiesensei.com/"

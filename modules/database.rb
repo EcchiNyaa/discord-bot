@@ -1,19 +1,15 @@
 require "sequel"
-require "sqlite3"
+require "sequel_enum"
 
-module Cygnus
+module Nyaa
   module Database
-    # Inlui cada modelo de DB.
-    #
-    # ------ EXEMPLO ------
-    #
-    # NOME = Sequel.connect("sqlite://#{DIR_DB}/nome.db")
-    #
-    # Sequel.extension :migration
-    # Sequel::Migrator.run NOME, "#{DIR_DB}/migrations/nome"
+    DB = Sequel.connect("sqlite://database/nyaa.db")
 
-    Sequel::Model.raise_on_save_failure = false
+    Sequel.extension :migration
+    Sequel::Migrator.run(DB, "database/migrations")
 
-    Dir["#{DIR_DB}/models/*.rb"].each { |file| require file }
+    Sequel::Model.plugin :timestamps
+
+    Dir["database/models/*.rb"].each { |model| load model }
   end
 end

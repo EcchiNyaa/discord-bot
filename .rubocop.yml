@@ -1,0 +1,23 @@
+# Não mesmo, esse projeto será escrito em português.
+AsciiComments:
+  Enabled: false
+
+# Snake case é muito mais legível.
+ClassAndModuleCamelCase:
+  Enabled: false
+
+# Nem sempre é necessário.
+Documentation:
+  Enabled: false
+
+# Se estou usando For, é porque preciso dele.
+For:
+  Enabled: false
+
+# Espaço ( dentro ) dos parenteses torna muito mais legível.
+SpaceInsideParens:
+  Enabled: false
+
+# Consistência? Prefiro utilizar somente double quotes.
+StringLiterals:
+  EnforcedStyle: double_quotes

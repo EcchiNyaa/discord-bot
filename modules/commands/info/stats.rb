@@ -1,12 +1,10 @@
-module Cygnus
-  module Cygnus_Commands
-    # ESTATÍSTICAS
-    # Mostra estatísticas sobre o bot.
+module Nyaa
+  module Commands
     module Stats
       extend Discordrb::Commands::CommandContainer
 
-      command :stats, help_available: false do |event|
-        Cygnus::Database::Stats.where( server_id: event.server.id ).first.show
+      command(:stats, description: "Info; Mostra estatísticas coletadas.") do |event|
+        Nyaa::Database::Stat.find(server_id: event.server.id).show
       end
     end
   end

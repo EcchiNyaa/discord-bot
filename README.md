@@ -1,4 +1,4 @@
-![Screenshot](/data/screenshot/screenshot.png?raw=true)
+![Screenshot](/home/screenshot/screenshot.png?raw=true)
 
 ![MIT License](https://img.shields.io/badge/license-MIT%20Licence-blue.svg?style=flat-square)
 ![Code Climate](https://img.shields.io/codeclimate/github/EcchiNyaa/discord-bot.svg?style=flat-square)
@@ -12,6 +12,8 @@
 
 # Nyaa Bot
 
+**Clone uma versão antiga, a nova está sendo reescrita e não é estável.**
+
 1. Faça uma cópia do arquivo `config/config-default.yml` para `config/config.yml`.
 2. Preencha todos os campos de `config/config.yml`.
 3. Execute `bundler` no diretório para instalar as dependências.
@@ -21,21 +23,6 @@
 
 **Nyaa não é compatível com Windows.**<br>
 Instale "Kakasi" caso pretenda utilizar o módulo língua japonesa.
-
-## Planos
-
-- [x] Otimizar comando !help
-- [x] Implementar um módulo de logs.
-- [ ] Reimplementar busca de eroges (revertida).
-- [ ] Implementar modo daemon + systemd.
-- [ ] Guia de fácil deploy com Docker.
-- [ ] Revisão geral do código para otimização.
-
-Nyaa será considerado estável (v1.0) após cumprir as metas acima.
-
-- [ ] Integração com outras plataformas, como MAL e VNDB.
-- [ ] Incluir busca por personagens e staff.
-- [ ] Fansub feed: Nyaa pode avisar por PM quando determinado fansub efetuar determinado lançamento.
 
 ## Descrição
 
@@ -59,9 +46,9 @@ Quer sugerir uma função? Crie uma `issue`.
 [17:03] EcchiNyaa: エッチニャア
 ```
 
-![Screenshot Japonês](/data/screenshot/screenshot_jp.png?raw=true)
+![Screenshot Japonês](/home/screenshot/screenshot_jp.png?raw=true)
 
-![Screenshot Japonês 2](/data/screenshot/screenshot_jp2.png?raw=true)
+![Screenshot Japonês 2](/home/screenshot/screenshot_jp2.png?raw=true)
 
 ### Integração com o EcchiNyaa
 
@@ -72,9 +59,9 @@ Quer sugerir uma função? Crie uma `issue`.
 
 Busca por eroges revertida temporariamente, será reescrita para utilizar também informações do VNDB.
 
-![Screenshot Animes](/data/screenshot/screenshot_anime.png?raw=true)
+![Screenshot Animes](/home/screenshot/screenshot_anime.png?raw=true)
 
-![Screenshot Ecchis](/data/screenshot/screenshot_ecchi.png?raw=true)
+![Screenshot Ecchis](/home/screenshot/screenshot_ecchi.png?raw=true)
 
 Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas regularmente e atualiza uma database mantida localmente, de forma que não tenha necessidade de acessar o server do EcchiNyaa a cada requisição.
 
@@ -97,13 +84,13 @@ Construiu-se uma API em PHP/json para ligar o bot ao website. Nyaa faz consultas
 - `!bot.reiniciar` **ADMIN** - Reinicia e sincroniza o bot com github.
 - `!bot.avatar [url]` **ADMIN** - Altera o avatar do bot.
 
-![Screenshot Administração](/data/screenshot/screenshot_admin1.png?raw=true)
+![Screenshot Administração](/home/screenshot/screenshot_admin1.png?raw=true)
 
-![Screenshot Administração](/data/screenshot/screenshot_admin2.png?raw=true)
+![Screenshot Administração](/home/screenshot/screenshot_admin2.png?raw=true)
 
 Suporta um canal privado de administração com sistema básico de tickets, usuários podem fazer sugestões e pedidos através de comandos, que são dispostos de forma organizada para a administração e podem ser marcados como resolvidos.
 
-![Screenshot Transparência](/data/screenshot/screenshot_transparencia.png?raw=true)
+![Screenshot Transparência](/home/screenshot/screenshot_transparencia.png?raw=true)
 
 Inspirado em alguns servidores, é possível exibir as operações da moderação em um canal (por exemplo, #transparencia).
 
@@ -113,7 +100,7 @@ Inspirado em alguns servidores, é possível exibir as operações da moderaçã
 - `!ping` - Exibe o ping em milissegundos.
 - `!help` - Comando de ajuda, não exibe opções administrativas.
 
-![Screenshot Transparência](/data/screenshot/screenshot_info.png?raw=true)
+![Screenshot Transparência](/home/screenshot/screenshot_info.png?raw=true)
 
 ### Logs
 
@@ -126,7 +113,7 @@ Inspirado em alguns servidores, é possível exibir as operações da moderaçã
 - `!query.afastamentos total` **ADMIN** - Mostra o total de punições.
 - `!query.afastamentos txt.log` **ADMIN** - Envia o log de usuários punidos em txt.
 
-![Screenshot Logs](/data/screenshot/screenshot_logs.png?raw=true)
+![Screenshot Logs](/home/screenshot/screenshot_logs.png?raw=true)
 
 Mantêm logs administrativos organizados em uma database, e mensagens privadas são mantidas em um arquivo de texto. Log global (i.e. de todos os canais) é desativado por padrão, mas pode ser ativado editando `config.yml`.
 

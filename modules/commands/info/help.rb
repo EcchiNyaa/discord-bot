@@ -1,43 +1,45 @@
-module Cygnus
-  module Cygnus_Commands
-    # HELP
-    # Sobrescreve o comando !help padrão, por um mais organizado e em português.
+module Nyaa
+  module Commands
     module Help
       extend Discordrb::Commands::CommandContainer
 
       command :help, help_available: false do |event|
-        help_command = Array.new
-        help_description = Array.new
+        help = []
 
         event.bot.commands.each do |name, command|
-          attributes = command.instance_variable_get( "@attributes" )
-
+          attributes = command.instance_variable_get("@attributes")
           next unless attributes[:help_available]
-          help_command.push name
-          help_description.push attributes[:description]
+
+          help << {
+            name: "#{CONFIG["prefix"]}#{name}",
+
+            category:    attributes[:description].split("; ").first,
+            description: attributes[:description].split("; ").last
+          }
         end
 
-        # Pega a quantidade de caracteres do maior comando,
-        # será utilizado para alinhar e indentar a caixa de comandos.
-        help = help_command.zip help_description
-        max_command_size = help_command.max_by( &:length ).length
+        indentation = help.max_by { |k| k[:name] }[:name].length
+        help = help.sort_by { |k| k[:category] }
 
-        last = ""
+        last_category = nil
 
-        event << "```"
-        help.each do |cmd, description|
-          whitespace = max_command_size - cmd.length
-          whitespace = " " * whitespace.to_i
+        msg = []
+        help.each do |command|
+          category = command[:category]
+          last_category == category ? header = false : header = true
+          last_category = category
 
-          # COMANDOS SEMELHANTES SÃO AGRUPADOS.
-          # Por exemplo, entre '[Japonês] !hiragana' e '[Japonês] !katakana' não há quebra de linha.
-          fw = description.split.first
-          last == fw ? if_linebreak = nil : if_linebreak = "\n" unless fw == help_description.first
-          last = description.split.first
+          whitespace = " " * (indentation - command[:name].length)
 
-          event << "#{if_linebreak}!#{cmd}#{whitespace} -> #{description}"
+          msg << "\n[#{command[:category]}]" if header
+          msg << " #{command[:name]}#{whitespace} --> #{command[:description]}"
         end
-        event << "```"
+
+        event.channel.send_embed do |embed|
+          embed.title = "NYAA :: Comando de Ajuda."
+          embed.description = "```#{msg.join("\n")}```"
+          embed.color = "9370DB"
+        end
       end
     end
   end
